@@ -1,0 +1,38 @@
+body{
+    display: flex;
+    background-color: whitesmoke;
+    background-image: url("images/batterie_accueil.jpg") ;
+    
+}
+#opaq_blanc
+{
+    
+    opacity: 0.4;
+    color: white;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 10%;
+    text-align: justify;
+    text-align: center;
+    padding-left: 7%;
+}
+.jumbotron
+{
+    height : 70%; width : 50%;
+} 
+
+
+p
+{
+    text-align : justify;
+    font-size: 120%;
+    text-align: center;
+}
+h1
+{
+    font-size : 3em;
+}
+.bouton_accueil
+{
+    
+}
