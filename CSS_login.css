@@ -14,7 +14,22 @@ body
 
 #log
 {
-
-    margin-top:100px;
+    margin-top:50px;
 }
-
+.card-body
+{
+    background-color: rgba(0, 0, 0, 0.418); 
+}
+.btn-dark
+{
+    background-color: rgba(0, 0, 0, 0.418);  
+}
+.navbar-expand-lg 
+{
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.418);
+}
+#logo
+{
+    width: 30%;
+}

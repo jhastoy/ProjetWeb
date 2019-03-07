@@ -12,23 +12,30 @@
 <body>
     <div class = "container">
         <div class = "row justify-content-center">
-            <div class="jumbotron bg-dark" id="opaq_blanc">
+            <div class="jumbotron" id="opaq_blanc">
                 <div class="row">
                     <div class="col-md-7 col-md-11">
-                        <h1> <strong>Music'Scape</strong></h1>
-                        
-                        <p>Aidez le misérable FatPat'Bat dans son apprentissage laborieux de la batterie à travers un escape game retraçant l'histoire de la musique<p>
+                        <img id = "logo" src = "images/logo.png"/>
+                    <br/>
+                    <br/>
+                        <p>Aidez le misérable FatPat'Bat dans son apprentissage laborieux de la batterie au travers d'un escape game retraçant l'histoire de la musique !</p>
                     </div>
                 </div>   
             </div> 
         </div>    
         <div class = "row justify-content-center"> 
-            <form action = "#" method ="POST" accept-charset="UTF-8"/> 
-            <button type="button" class="btn btn-dark btn-lg" id="bouton_accueil">Aider le FatPat'Bat</button>     
+            <form action = "login.php" accept-charset="UTF-8"> 
+            <button type="submit" class="btn btn-dark btn-lg" id="bouton_accueil">Aider le FatPat'Bat</button>     
             </form>
         </div>
         
-    </div> 
+    </div>
+    <video id = "mavideo" controls width="250">
+
+            <source src="images/sans_titre.mp4"
+                    type="video/mp4">
+                    </video>
+             
     
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -5,12 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="main.js"></script>
-    <link rel="stylesheet" href="CSS_login.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css_login.css">
+    <script src="main.js"></script>
+    
 </head>
 <body>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="accueil_le_sang.html"><img id = "logo" src = "images/logo.png"/></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item active">
+      
+        <button class="btn btn-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-user"></span> Non connecté</button>
+
+      </li>
+    </ul>
+  </div>
+</nav>
 
   <div id = "log"  class = "container" >
 
@@ -37,7 +54,7 @@
               $BDD -> query($Requete);
               print '<div class = "row justify-content-center">
               <div class = "col-8"> <div class="alert alert-success" role="alert">
-              Vous êtes à présent inscris ! Vous pouvez vous <strong>connecter</strong>.
+              Vous êtes à présent inscrit ! Vous pouvez vous <strong>connecter</strong>.
             </div></div></div>';
             }
           
@@ -81,7 +98,7 @@
     </p>
     
     <div class = "col-4">
-    <div class = "card card-body bg-dark text-white">
+    <div class = "card card-body text-white">
     <form method = "POST" action = "login.php">
   <div class="form-group">
     <label for="exampleInputEmail1">Identifiant</label>
@@ -98,7 +115,7 @@
 
 
 <div class = "col-4">
-    <div class = "card card-body bg-dark text-white">
+    <div class = "card card-body text-white">
     <form method = "POST" action = "login.php">
   <div class="form-group">
     <label for="exampleInputEmail1">Identifiant</label>
@@ -112,7 +129,7 @@
     <label for="exampleInputEmail">Adresse Email</label>
     <input name="email" type="email" class="form-control" id="exampleInputPassword1" placeholder="Entrer email" required>
   </div>
-  <button type="submit" class="btn btn-primary">S'inscrire</button>
+  <button type="submit" class="btn btn-dark">S'inscrire</button>
 </form>
 </div>
 </div>

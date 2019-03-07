@@ -1,17 +1,23 @@
+
 body{
     display: flex;
     background-color: whitesmoke;
-    background-image: url("images/batterie_accueil.jpg") ;
+   
     
 }
+#mavideo {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    object-fit: cover;
+  }
 #opaq_blanc
 {
     
-    opacity: 0.4;
-    color: white;
-    margin-left: 20%;
-    margin-right: 20%;
-    margin-top: 10%;
+    margin-top:10%;
+    background-color: rgba(0, 0, 0, 0.418);    
     text-align: justify;
     text-align: center;
     padding-left: 7%;
@@ -24,11 +30,26 @@ body{
 
 p
 {
-    text-align : justify;
+    color:white;
+    text-align : center;
     font-size: 120%;
-    text-align: center;
+    
 }
 h1
 {
-    font-size : 3em;
+    font-family: Rockness;
+    color : black;
+    font-size : 5em;
+}
+.container
+{
+    width: 100%;
+}
+.btn-dark
+{
+    background-color: rgba(0, 0, 0, 0.418);  
+}
+#logo
+{
+    width: 100%;
 }
