@@ -6,6 +6,11 @@
     font-weight: normal;
     font-style: normal;
     }
+p
+{
+    color :white;
+    text-align: center;
+}
 h1
 {
     text-align: center;
@@ -24,6 +29,10 @@ h1
 .card-body
 {
     background-color: rgba(0, 0, 0, 0.418); 
+}
+#card_team
+{
+    background-color: rgba(0, 0, 0, 0);
 }
 .btn-dark
 {
@@ -55,8 +64,7 @@ video#mavideo {
 #fond_home
 {
     background-image: url(images/fond_home.png);
-    background-size: 100%;
-    background-position-y: -80px;
+    background-size: cover;
 }
 #nouv_partie{
     height:500px;
@@ -78,10 +86,12 @@ video#mavideo {
     width:80%;
     margin-right: 10px;
 }
-.container
-{
-    width: 100%;
+#team{
+    background-color: rgba(0, 0, 0, 0.418);
+    margin-top : 40px;   
+    
 }
+
 #fond_page
 {width: 90%;
 margin:auto;}
@@ -95,4 +105,9 @@ margin:auto;}
 #play
 {
     background-color: #e3431f;
+}
+
+#input_team
+{
+    width: 100%;
 }

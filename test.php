@@ -3,34 +3,33 @@
 
 
 <body id = "fond_home">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="CSS_login.css">
-<?php
-session_start();
-require_once "includes/header.php";
-?>
-<div id = "fond_page">
-      <div class = "row justify-content-between">
-        <div class="col-3" id="nouv_partie">
-        <h1 class = "titre_home">Nouvelle parti'tion</h1>
-          <div class = "row justify-content-center">
-              <div class = "col-4">
-              <button class="btn btn-dark" style="text-align:center" type="submit">Règles</button>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" media="screen" href="CSS_login.css">
+  <?php
+    session_start();
+    require_once "includes/header.php";
+  ?>
+  <div id = "fond_page">
+        <div class = "row justify-content-between">
+          <div class="col-3" id="nouv_partie">
+            <h1 class = "titre_home">Nouvelle parti'tion</h1>
+              <div class = "row justify-content-center">
+                  <div class = "col-4">
+                    <button class="btn btn-dark" style="text-align:center" type="submit">Règles</button>
+                  </div>
+                  <div class = "col-6">
+                    <button id = "play" class="btn btn-dark" style="text-align:center" type="submit">Lancer partie</button>
+                  </div>
               </div>
-              <div class = "col-4">
-              <button id = "play" class="btn btn-dark" style="text-align:center" type="submit">Jouer</button>
-              </div>
-</div>
           </div>
-        <div class="col-5" id="progression">
-        <h1 class = "titre_home">Progression</h1>
+          <div class="col-5" id="progression">
+            <h1 class = "titre_home">Progression</h1>
+          </div>
+          <div class="col-2" id="scores">
+            <h1 class = "titre_home">Top fatbat'ers</h1>
+          </div>
         </div>
-        <div class="col-2" id="scores">
-        <h1 class = "titre_home">Top fatbat'ers</h1>
-        
-        </div>
-      </div>
-</div>
+  </div>
 
 
 

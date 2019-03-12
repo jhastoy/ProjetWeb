@@ -18,7 +18,9 @@ require_once "includes/header.php";
             $password = $_POST['password'];
             $id = $_POST['id'];
             $Requete = "SELECT count(*) as nb from USERS where ID = '$id' OR email = '$email'";
+            $Requete2 = "INSERT INTO teams (ID) VALUES ('$id')";
             $res = $BDD -> query($Requete);
+            $BDD -> query($Requete2);
             $ligne = $res->fetch();
             $nb = $ligne['nb'];
             if($nb!=0)
