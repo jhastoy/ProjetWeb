@@ -64,7 +64,8 @@ video#mavideo {
 #fond_home
 {
     background-image: url(images/fond_home.png);
-    background-size: cover;
+    background-size: 100%;
+    background-position-y: -100px;
 }
 #nouv_partie{
     height:500px;
@@ -78,6 +79,11 @@ video#mavideo {
     background-color: rgba(0, 0, 0, 0.418);
     margin-top : 40px;   
     width:80%;
+}
+#progression2{
+    height:250px;
+    background-color: rgba(0, 0, 0, 0.418);  
+    width:100%;
 }
 #scores{
     height:500px;
@@ -111,14 +117,13 @@ margin:auto;}
 {
     width: 100%;
 }
-    margin-top : 40%;
-}
+    
 .texte_nouv_part
 {
     margin-top: 3%;
     margin-left : 5%;
     font-size: 130%;
-    color : whitesmoke;
+    color : white;
 }
 hr
 {
@@ -136,4 +141,8 @@ hr
     color : #e3431f;
     font-size: 150%;
     margin-top : 12%;
+}
+#drum
+{
+    margin-top: 20px;
 }
