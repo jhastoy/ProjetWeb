@@ -1,3 +1,11 @@
+@font-face {
+    font-family: 'yo';
+
+    src: url('font/yo.otf') format('truetype');
+
+    font-weight: normal;
+    font-style: normal;
+    }
 h1
 {
     text-align: center;
@@ -7,10 +15,7 @@ h1
 {
     border-radius: 20px;
 }
-body
-{
-    background-image:url(images/fond.jpg);
-}
+
 
 #log
 {
@@ -24,6 +29,9 @@ body
 {
     background-color: rgba(0, 0, 0, 0.418);  
 }
+.btn-dark:hover {
+    background: #e3431f;
+    }
 .navbar-expand-lg 
 {
     width: 100%;
@@ -32,4 +40,59 @@ body
 #logo
 {
     width: 30%;
+}
+video#mavideo {
+    position: fixed; right: 0; bottom: 0;
+    min-width: 100%; min-height: 100%;
+    width: auto; height: auto; z-index: -100;
+    background-size: cover;
+  }
+
+#navbutton
+{
+    margin:auto;
+}
+#fond_home
+{
+    background-image: url(images/fond_home.png);
+    background-size: 100%;
+    background-position-y: -80px;
+}
+#nouv_partie{
+    height:500px;
+    background-color: rgba(0, 0, 0, 0.418);
+    margin-top : 40px;
+    margin-left: 10px;
+    width:80%;
+}
+#progression{
+    height:350px;
+    background-color: rgba(0, 0, 0, 0.418);
+    margin-top : 40px;   
+    width:80%;
+}
+#scores{
+    height:500px;
+    background-color: rgba(0, 0, 0, 0.418);
+    margin-top : 40px;
+    width:80%;
+    margin-right: 10px;
+}
+.container
+{
+    width: 100%;
+}
+#fond_page
+{width: 90%;
+margin:auto;}
+.titre_home
+{
+    color:#e3431f;
+    font-size: 2em;
+    margin-top:15px;
+    font-family: yo;
+}
+#play
+{
+    background-color: #e3431f;
 }

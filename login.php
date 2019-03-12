@@ -1,37 +1,17 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="css_login.css">
-    <script src="main.js"></script>
-    
-</head>
+<?php require_once "includes/head.php"; ?>
 <body>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" href="css_login.css">
+<?php
+require_once "includes/header.php";
 
-  <nav class="navbar navbar-expand-lg navbar-light">
-  <a class="navbar-brand" href="accueil_le_sang.html"><img id = "logo" src = "images/logo.png"/></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-      
-        <button class="btn btn-dark" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-user"></span> Non connecté</button>
-
-      </li>
-    </ul>
-  </div>
-</nav>
+?>
 
   <div id = "log"  class = "container" >
 
     <?php require("connect.php");
+    session_start();
       if(empty($_POST['id']) == false && empty($_POST['email']) == false)
         {
             $email = $_POST['email'];
@@ -77,8 +57,9 @@
           }
           else
           {
+            $_SESSION['id'] = $id;
             header('Location: test.php');
-            exit();
+            
           }
         }
         
@@ -136,7 +117,15 @@
 </div>
       </div>
       </div>
+      </div>
+      </div>
+      </div>
 
+      <video id = "mavideo" autoplay loop>
+
+<source src="images/sans_titre.mp4"
+        type="video/mp4">
+        </video>
 
 
 
