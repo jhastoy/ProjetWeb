@@ -95,4 +95,29 @@ margin:auto;}
 #play
 {
     background-color: #e3431f;
+    margin-top : 40%;
+}
+.texte_nouv_part
+{
+    margin-top: 3%;
+    margin-left : 5%;
+    font-size: 130%;
+    color : whitesmoke;
+}
+hr
+{
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+    color : #e3431f;
+    background-color: #e3431f;
+    border-block-end-color: #e3431f;
+}
+.texte_nouv_part_suit{
+    color : #e3431f;
+    font-size: 150%;
+    margin-top : 12%;
 }
