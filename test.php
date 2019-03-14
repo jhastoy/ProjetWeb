@@ -17,12 +17,18 @@ require_once "includes/header.php";
     <div class = "row justify-content-between">
         <div class="col-3" id="nouv_partie">
             <h1 class = "titre_home">Nouvelle parti'tion</h1>
+            <div id = "nouv_partie2_1" class = "row justify-content-center">
+                <div class = "col-10" id = "nouv_partie2">
+                <p> Introduction au jeu </p>
+                </div>
+            </div>
             <div class = "row justify-content-center">
+                
                 <div class = "col-4">
                 <button class="btn btn-dark" style="text-align:center" type="submit">Règles</button>
                 </div>
                 <div class = "col-6">
-                <button id = 'play' class='btn btn-dark' style='text-align:center' type='submit'>Lancer partie</button>
+                <a href = "create_team.php"><button id = 'play' class='btn btn-dark' style='text-align:center' type='submit'>Lancer partie</button></a>
                 </div>
                 
             </div>
@@ -41,15 +47,13 @@ require_once "includes/header.php";
             <div id='progression2'>
             <div class = 'row justify-content-around'>
                 <div class = 'col-2'>
-                    <img id = 'drum' src='images/drum.png' alt ='drum' height ='120' width = '120' >
+                    <img id = 'drum' src='images/drum_v1.png' alt ='drum' height ='120' width = '120' >
                 </div>
                 <div class = 'col-8'>
                     <p class = 'texte_nouv_part'> Tu n'as pas encore créé de partie!<br/> Réunis tes amis et venez tous ensemble découvrir l'histoire de la musique à travers différentes époques ! </p>
                 </div>
                 
-                <div class = 'col-9'>
-                    <p class = 'texte_nouv_part_suit'> Clique et commence l'aventure !
-                </div>
+                
             </div>
             </div>
         </div>"
