@@ -22,7 +22,7 @@
         <div id = "team" class = "col-2">
             <div id = "card_team" class = "card card-body text-white">
                 <form method = "POST" action = 
-                <?php if(!empty($_POST['nbPlayers']))
+                <?php if(!empty($_POST['joueur1']))
                 {
                     print("game.php");
                 }
