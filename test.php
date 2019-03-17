@@ -33,11 +33,8 @@ require_once "includes/connect.php" ?>
             </div>
         </div>
 
-        <?php 
-        $id = $_SESSION['id'];
-        $requete = "SELECT progression as prog from scores where ID = '$id'";
-        $res = $BDD -> query($requete);
-        $ligne = $res->fetch();
+        <?php require_once "includes/fonctions.php";
+        $ligne = queryBDD("progression","scores", "id", $id);
         if($ligne ==0)
         {
             echo "
