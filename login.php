@@ -10,7 +10,7 @@ require_once "includes/header.php";
 
   <div id = "log"  class = "container" >
 
-    <?php require("connect.php");
+    <?php require("includes/connect.php");
     session_start();
       if(empty($_POST['id']) == false && empty($_POST['email']) == false)
         {
@@ -19,8 +19,10 @@ require_once "includes/header.php";
             $id = $_POST['id'];
             $Requete = "SELECT count(*) as nb from USERS where ID = '$id' OR email = '$email'";
             $Requete2 = "INSERT INTO teams (ID) VALUES ('$id')";
+            $Requete3 = "INSERT INTO scores (ID) VALUES ('$id')";
             $res = $BDD -> query($Requete);
             $BDD -> query($Requete2);
+            $BDD -> query($Requete3);
             $ligne = $res->fetch();
             $nb = $ligne['nb'];
             if($nb!=0)
@@ -38,7 +40,7 @@ require_once "includes/header.php";
               <div class = "col-8"> <div class="alert alert-success" role="alert">
               Vous êtes à présent inscrit ! Vous pouvez vous <strong>connecter</strong>.
             </div></div></div>';
-            $Requete = "INSERT INTO score (progression) VALUES (0)";
+            $Requete = "INSERT INTO scores (progression) VALUES (0)";
             $BDD -> query($Requete);
             }
           

@@ -10,8 +10,7 @@
 <?php
 session_start();
 require_once "includes/header.php";
-?>
-<?php require_once "connect.php" ?>
+require_once "includes/connect.php" ?>
 
 <div id = "fond_page">
     <div class = "row justify-content-between">

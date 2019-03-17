@@ -21,9 +21,18 @@
 
         <div id = "team" class = "col-2">
             <div id = "card_team" class = "card card-body text-white">
-                <form method = "POST" action = "create_team.php">
+                <form method = "POST" action = 
+                <?php if(!empty($_POST['nbPlayers']))
+                {
+                    print("game.php");
+                }
+                else
+                {
+                    print("create_team.php");
+                }
+                ?> >
                     <div class="form-group">
-                        <?php  require "connect.php";
+                        <?php  require "includes/connect.php";
                         if (!empty($_POST['nbPlayers']))
                         {
                             for($i = 1; $i<=$_POST['nbPlayers']; $i++)

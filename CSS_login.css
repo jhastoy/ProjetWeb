@@ -106,6 +106,22 @@ video#mavideo {
     
 }
 
+#titre_enigme
+{
+    margin-top : 40px;
+    background-color: rgba(0, 0, 0, 0.418);
+}
+#nom_enigme
+{
+    font-family: yo;
+}
+#corps_enigme
+{
+    height: 400px;
+    margin-top : 40px;
+    background-color: rgba(0, 0, 0, 0.418);
+}
+
 #fond_page
 {width: 90%;
 margin:auto;}
