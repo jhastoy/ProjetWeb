@@ -22,7 +22,6 @@
         {
             header("Location: result.php/?reponse=false");
         }
-
     }
     else
         if(!empty($_POST['1'] || !empty($_POST['2'] || !empty($_POST['3'] || !empty($_POST['4'] || !empty($_POST['5'])
