@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php require_once "includes/head.php"; ?>
-<body id = "fond_home">
+<body background = "images/fond_home.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css_login.css">
     <?php
@@ -10,6 +10,37 @@
     require_once "includes/fonctions.php";
     
     $progression = queryBDD('progression','scores','id',$_SESSION['id']);
+
+    if(!empty($_POST['reponse'])
+    {
+        $reponse = queryBDD('answer','games','id',$progression);
+        if($reponse == $_POST['reponse'])
+        {
+            header("Location: result.php/?reponse=true");
+        }
+        else
+        {
+            header("Location: result.php/?reponse=false");
+        }
+
+    }
+    else
+        if(!empty($_POST['1'] || !empty($_POST['2'] || !empty($_POST['3'] || !empty($_POST['4'] || !empty($_POST['5'])
+        {
+            foreach($_POST as $value)
+            {
+                $reponseU = $reponseu . " " .$value;
+            }
+            $reponse = queryBDD('answer','games','id',$progression);
+            if($reponse == $reponsu)
+            {
+                header("Location: result.php/?reponse=juste");
+            }
+            else
+            {
+                header("Location: result.php/?reponse=faux");
+            }
+        }
     ?>
 
 
@@ -62,14 +93,12 @@
                                 {
                                     ?>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="check<?php print($i);?>" value="<?php print(queryBDD("radio$i",'game_radio',"ID_game",$progression));?>">
+                                    <input name="$i" class="form-check-input" type="checkbox" id="check<?php print($i);?>" value="<?php print(queryBDD("radio$i",'game_radio',"ID_game",$progression));?>">
                                     <label class="form-check-label" for="check<?php print($i);?>"><?php print(queryBDD("radio$i",'game_radio',"ID_game",$progression));?></label>
                                 </div>
                                 <?php
                                 }
-
                             }
-                    
                     }
                 ?>
                 <br/>
