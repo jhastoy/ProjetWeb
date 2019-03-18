@@ -9,11 +9,11 @@
     require_once "includes/connect.php"; 
     require_once "includes/fonctions.php";
     
-    $progression = queryBDD('progression','scores','id',$_SESSION['id']);
+    $progression = queryBDD('progression','scores','ID',$_SESSION['id']);
 
-    if(!empty($_POST['reponse'])
+    if(!empty($_POST['reponse']))
     {
-        $reponse = queryBDD('answer','games','id',$progression);
+        $reponse = queryBDD('reponse','games','ID',$progression);
         if($reponse == $_POST['reponse'])
         {
             header("Location: result.php/?reponse=true");
@@ -24,13 +24,13 @@
         }
     }
     else
-        if(!empty($_POST['1'] || !empty($_POST['2'] || !empty($_POST['3'] || !empty($_POST['4'] || !empty($_POST['5'])
+        if(!empty($_POST['1']) || !empty($_POST['2'])|| !empty($_POST['3']) || !empty($_POST['4']) || !empty($_POST['5']))
         {
             foreach($_POST as $value)
             {
                 $reponseU = $reponseu . " " .$value;
             }
-            $reponse = queryBDD('answer','games','id',$progression);
+            $reponse = queryBDD('reponse','games','ID',$progression);
             if($reponse == $reponsu)
             {
                 header("Location: result.php/?reponse=juste");
