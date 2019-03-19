@@ -8,7 +8,7 @@
     require_once "includes/header.php";
     require_once "includes/connect.php"; 
     require_once "includes/fonctions.php";
-    
+    $rep = 'rien';
     $progression = queryBDD('progression','scores','ID',$_SESSION['id']);
 
     if(!empty($_POST['reponse']))
@@ -16,13 +16,13 @@
         $reponse = queryBDD('reponse','games','ID_game',$progression);
         if($reponse == $_POST['reponse'])
         {
-            $_SESSION['reponse']='vrai';
-            header("Location: result.php");
+            $rep='vrai';
+         
         }
-        else
+        else    
         {
-            $_SESSION['reponse']='faux';
-            header("Location: result.php");
+            $rep ='faux';
+            
         }
     }
     else
@@ -35,13 +35,11 @@
             $reponse = queryBDD('reponse','games','ID_game',$progression);
             if($reponse == $reponseU)
             {
-                $_SESSION['reponse']='vrai';
-                header("Location: result.php");
+                $rep='vrai';
             }
             else
             {
-                $_SESSION['reponse']='faux';
-                header("Location: result.php");
+                $rep='faux';
             }
         }
     ?>
@@ -55,6 +53,36 @@
         </div>
         <div class = "row justify-content-center">
             <div id ="corps_enigme" class = "col-12">
+            <?php 
+            
+            if($rep=='vrai' || $rep =='faux')
+            {
+                $typee = queryBDD('TYPE','games','ID_game',$progression);
+                if ($typee == 1 || $typee == 2 && $rep== 'faux')
+                {
+                    updateBDD('scores','points',queryBDD('points', 'scores', 'ID',$_SESSION['id'] ) + 1000,'ID',$_SESSION['id']);
+                    print "c'est faux sale loser!!! Même FatPatBat aurait trouvé sérieux là?!";
+                }
+                else 
+                {
+                    if ($typee == 0 && $rep== 'faux')
+                    {
+                        echo "faux réessaie encore loleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee(je te hais)eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                    }
+                    else
+                    {
+                        print "c'est bien vu ça. La NASA te remercie ";
+                        updateBDD('scores','progression',queryBDD('progression', 'scores','ID', $_SESSION['id']) + 1 ,'ID',$_SESSION['id']);
+                    }
+                }
+                header('Refresh: 3; game.php');
+                
+
+            }
+            else
+            {
+            ?>
+            
                 <p><?php print(queryBDD('body','games','ID_game',$progression)); ?></p>
                 <br/>
                 <?php print(queryBDD('content','games','ID_game',$progression)); ?>
@@ -103,10 +131,14 @@
                                 }
                             }
                     }
+            
                 ?>
                 <br/>
                 <button type="submit" class="btn btn-dark">Valider</button>
             </form>
+            <?php
+            }
+            ?>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
