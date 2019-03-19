@@ -10,56 +10,59 @@
 <?php
 session_start();
 require_once "includes/header.php";
-require_once "includes/connect.php" ?>
+require_once "includes/connect.php";
+require_once "includes/fonctions.php" ?>
+<?php 
+if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
+{ ?>
+    <div id = "fond_page">
+        <div class = "row justify-content-between">
+            <div class="col-3" id="nouv_partie">
+                <h1 class = "titre_home">Nouvelle parti'tion</h1>
+                <div id = "nouv_partie2_1" class = "row justify-content-center">
+                    <div class = "col-10" id = "nouv_partie2">
+                    <p> Introduction au jeu </p>
+                    </div>
+                </div>
+                <div class = "row justify-content-center">
+                    
+                    <div class = "col-4">
+                    <button class="btn btn-dark" style="text-align:center" type="submit">Règles</button>
+                    </div>
+                    <div class = "col-6">
+                    <a href = "create_team.php"><button id = 'play' class='btn btn-dark' style='text-align:center' type='submit'>Lancer partie</button></a>
+                    </div>
+                    
+                </div>
+            </div>
 
-<div id = "fond_page">
-    <div class = "row justify-content-between">
-        <div class="col-3" id="nouv_partie">
-            <h1 class = "titre_home">Nouvelle parti'tion</h1>
-            <div id = "nouv_partie2_1" class = "row justify-content-center">
-                <div class = "col-10" id = "nouv_partie2">
-                <p> Introduction au jeu </p>
-                </div>
-            </div>
-            <div class = "row justify-content-center">
-                
-                <div class = "col-4">
-                <button class="btn btn-dark" style="text-align:center" type="submit">Règles</button>
-                </div>
-                <div class = "col-6">
-                <a href = "create_team.php"><button id = 'play' class='btn btn-dark' style='text-align:center' type='submit'>Lancer partie</button></a>
-                </div>
-                
-            </div>
-        </div>
+            <?php require_once "includes/fonctions.php";
+            $ligne = queryBDD("progression","scores", "id", $id);
+            if($ligne ==0)
+            {
+                echo "
+                <div class='col-5' id='progression'>
+                <h1 class = 'titre_home'>Progression</h1>
+                    <div id='progression2'>
+                        <div class = 'row justify-content-around'>
+                            <div class = 'col-2'>
+                                <img id = 'drum' src='images/drum_v1.png' alt ='drum' height ='120' width = '120' >
+                            </div>
+                            <div class = 'col-8'>
+                                <p class = 'texte_nouv_part'> Tu n'as pas encore créé de partie!<br/> Réunis tes amis et venez tous ensemble découvrir l'histoire de la musique à travers différentes époques ! </p>
+                            </div>
+                            
+                            
+                        </div>
+                    </div>
+                </div>"
+                ;
+            }
+            else
+            {
+                echo "donne moi de l'argent stp";
+            }
 
-        <?php require_once "includes/fonctions.php";
-        $ligne = queryBDD("progression","scores", "id", $id);
-        if($ligne ==0)
-        {
-            echo "
-            <div class='col-5' id='progression'>
-            <h1 class = 'titre_home'>Progression</h1>
-            <div id='progression2'>
-            <div class = 'row justify-content-around'>
-                <div class = 'col-2'>
-                    <img id = 'drum' src='images/drum_v1.png' alt ='drum' height ='120' width = '120' >
-                </div>
-                <div class = 'col-8'>
-                    <p class = 'texte_nouv_part'> Tu n'as pas encore créé de partie!<br/> Réunis tes amis et venez tous ensemble découvrir l'histoire de la musique à travers différentes époques ! </p>
-                </div>
-                
-                
-            </div>
-            </div>
-        </div>"
-            ;
-        }
-        else
-        {
-            echo "donne moi de l'argent stp";
-        }
-        
             
         ?>
         <div class="col-2" id="scores">
@@ -67,6 +70,23 @@ require_once "includes/connect.php" ?>
         </div>
     </div>
 </div>
+<?php 
+}
+else
+{
+?>
+    <div id = "fond_page">
+        <div class = "row justify-content-between">
+            <div class = "col-6" id = "parties en cours">
+                 <h1 class = "titre_home">Les parties en cours </h1>
+                 
+
+
+
+    </div>
+<?php 
+}
+?>
 
 
 
