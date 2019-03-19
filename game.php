@@ -13,14 +13,16 @@
 
     if(!empty($_POST['reponse']))
     {
-        $reponse = queryBDD('reponse','games','ID',$progression);
+        $reponse = queryBDD('reponse','games','ID_game',$progression);
         if($reponse == $_POST['reponse'])
         {
-            header("Location: result.php/?reponse=true");
+            $_SESSION['reponse']='vrai';
+            header("Location: result.php");
         }
         else
         {
-            header("Location: result.php/?reponse=false");
+            $_SESSION['reponse']='faux';
+            header("Location: result.php");
         }
     }
     else
@@ -28,16 +30,18 @@
         {
             foreach($_POST as $value)
             {
-                $reponseU = $reponseu . " " .$value;
+                $reponseU = $reponseU . " " .$value;
             }
-            $reponse = queryBDD('reponse','games','ID',$progression);
-            if($reponse == $reponsu)
+            $reponse = queryBDD('reponse','games','ID_game',$progression);
+            if($reponse == $reponseU)
             {
-                header("Location: result.php/?reponse=juste");
+                $_SESSION['reponse']='vrai';
+                header("Location: result.php");
             }
             else
             {
-                header("Location: result.php/?reponse=faux");
+                $_SESSION['reponse']='faux';
+                header("Location: result.php");
             }
         }
     ?>
