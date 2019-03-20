@@ -105,7 +105,11 @@ video#mavideo {
     margin-top : 40px;   
     
 }
-
+#titre_aide
+{
+    margin-top : 40px;
+    background-color: rgba(0, 255, 213, 0.2);
+}
 #titre_enigme
 {
     margin-top : 40px;
@@ -113,6 +117,7 @@ video#mavideo {
 }
 #nom_enigme
 {
+    margin-top:10px;
     font-family: yo;
 }
 #corps_enigme
@@ -120,6 +125,13 @@ video#mavideo {
     height: 400px;
     margin-top : 40px;
     background-color: rgba(0, 0, 0, 0.418);
+}
+#corps_aide
+{
+    height: 400px;
+    margin-top : 40px;
+    background-color:  rgba(0, 255, 213, 0.2);
+    
 }
 
 #fond_page
