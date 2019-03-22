@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php require_once "includes/head.php"; ?>
-<body background = "images/fond_home.png">
+<body background = "images/enigme1.jpg">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css_login.css">
     <?php
@@ -10,7 +10,12 @@
     require_once "includes/fonctions.php";
     $rep = 'rien';
     $progression = queryBDD('progression','scores','ID',$_SESSION['id']);
-
+    if(!empty($_POST['message']))
+    {
+        sendChat($_SESSION['id'], $_POST['message']);
+        updateBDD('users','HELP',true,'ID',$_SESSION['id']);
+        header('Location: game.php');
+    }
     if(!empty($_POST['reponse']))
     {
         $reponse = queryBDD('reponse','games','ID_game',$progression);
@@ -44,7 +49,7 @@
         }
     ?>
         <div class ="row justify-content-around">
-            <div id="titre_aide" class = "col-2">
+            <div id="titre_aide" class = "col-3">
                 <h1 id="nom_enigme">AIDE</h1>
             </div>
             <div id="titre_enigme" class = "col-8">
@@ -54,9 +59,44 @@
         
         
         <div class = "row justify-content-around">
-        <div id ="corps_aide" class = "col-2">
-
-        </div>
+            <div id ="corps_aide" class = "col-3">
+                <div class = "row justify-content-center">
+                    <div id="chat_user" class="col-10">
+                        <?php 
+                        $tab = infosMessages($_SESSION['id']);
+                   
+                        for($i=nombreMessages($_SESSION['id'])-1;$i>=0;$i--)
+                        {
+                            ?>
+                            <div class = "row justify-content-center">
+                                <div id = "message_user" class ="col-10">
+                                    <?php
+                                        $message = $tab[$i]['message'];
+                                        print "<p id = 'msg'>";
+                                        print $message;
+                                        print "</p>";
+                                    ?>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class = "row justify-content-center">
+                    <div class="col-10">
+                        <form method = "POST" action = "game.php">
+                            <div class="form-group" method = "POST" action = "game.php">
+                                <textarea class="form-control" name="message" rows="1"></textarea>
+                                <button type="submit" class="btn btn-dark">Demander de l'aide</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+        
+    
             <div id ="corps_enigme" class = "col-8">
             <?php 
             

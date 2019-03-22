@@ -11,8 +11,14 @@
 session_start();
 require_once "includes/header.php";
 require_once "includes/connect.php";
-require_once "includes/fonctions.php" ?>
+require_once "includes/fonctions.php"; ?>
 <?php 
+if (!empty($_POST['message']))
+{
+    sendChat($_SESSION['chatuser'], $_POST['message']);
+    updateBDD('users','HELP',false,'ID',$_SESSION['chatuser']);
+    header('Location: test.php');
+}
 if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
 { ?>
     <div id = "fond_page">
@@ -77,16 +83,115 @@ else
 ?>
     <div id = "fond_page">
         <div class = "row justify-content-between">
-            <div class = "col-6" id = "parties en cours">
-                 <h1 class = "titre_home">Les parties en cours </h1>
-                 
+            <div class = "col-5" id = "part_act">
+                <h1 class = "titre_home">Les parties en cours </h1>
+                <div class = 'row justify-content-center'>
+                    <div id ="part_act2" class= "col-10" >
+                        
+                        <?php $tab = infosParties(); 
+                        for ($i = 0; $i < nombreparties(); $i++ )
+                        {
+                            ?>
+                            <div class = 'row justify-content-center'>
+                                <a href = "test.php?chatuser=<?php print($tab[$i]['ID']); ?>"><div  class = 'col-10' id = '<?php 
+                                
+                                if(queryBDD('HELP', 'users', 'ID', $tab[$i]['ID'])==true)
+                                {
+                                    print"rect_av_red";
+                                }
+                                else
+                                {
+                                    print"rect_av";
+                                }
+                                ?>'>
+                                
+                                  
+                                    <div class = "row justify-content-between">
+                                        <div class = "col-3">
+                                            <img id = "img" src = "images/enigme1.jpg" width= "100px"/>
+                                        </div>
+                                        <div class = "col-9">
+                                        <?php
+                                    
+                                                
+      
+                                                print"<p id = 'img'><strong>Joueur : </strong>";
+                                                print $tab[$i]['ID']; 
+                                                print"<br/> <strong>Temps : </strong>";
+                                                print $tab[$i]['time'];
+                                                print"   <strong>Score : </strong>";
+                                                print $tab[$i]['points'];
+                                                
+                                                print"</p>";
+                                                
+                                                $progression=$tab[$i]['progression']/nombreGames()*100;
+                                                ?>
+                                        </div>
 
+                                    </div>
+                                    <div class = "row justify-content-center">
+                                        <div class = "col-12">
+                                            <div class="progress" style="height:10px">
+                                                <div class='progress-bar <?php if($progression<=25){print"bg-danger";}else{if($progression>25 && $progression<= 50){print"bg-warning";}else{if($progression>50 && $progression<=75){print"bg-info";}else{print"bg-sucess";}}}?>' role="progressbar" style="height:10px ; width: <?php print($progression) ?>% " aria-valuenow= "<?php print($progression) ?>"  aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
 
-
+                                </div>
+                            </div> 
+                        <?php
+                        }  
+                        ?>  
+                    </div>
+                </div>
+            </div>
+            <div class = "col-3" id = "part_act">
+                <h1 class = "titre_home">CHAT</h1>
+                <div class = 'row justify-content-center'>
+                    <div id ="part_act2" class= "col-10" >
+                    <?php 
+                        if(!empty($_GET['chatuser']))
+                        {
+                        $_SESSION['chatuser']=$_GET['chatuser'];
+                        }
+                        $tab = infosMessages($_SESSION['chatuser']);
+                        
+                        for($i=nombreMessages($_SESSION['chatuser'])-1;$i>=0;$i--)
+                        {
+                            ?>
+                            <div class = "row justify-content-center">
+                                <div id = "message_user" class ="col-10">
+                                    <?php
+                                        $message = $tab[$i]['message'];
+                                        print "<p id = 'msg'>";
+                                        print $message;
+                                        print "</p>";
+                                    ?>
+                                </div>
+                            </div>
+                        <?php
+                        }
+                }
+                        ?>
+                    
+                                  
+                    </div>
+                </div>
+                <div class = "row justify-content-center">
+                    <div class="col-10">
+                        <form method = "POST" action = "test.php">
+                            <div class="form-group">
+                                <textarea class="form-control" name="message" rows="1"></textarea>
+                                <button type="submit" class="btn btn-dark">Envoyer de l'aide</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div> 
     </div>
-<?php 
-}
-?>
+
 
 
 

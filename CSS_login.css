@@ -108,7 +108,7 @@ video#mavideo {
 #titre_aide
 {
     margin-top : 40px;
-    background-color: rgba(0, 255, 213, 0.2);
+    background-color: rgba(0, 0, 0, 0.418);
 }
 #titre_enigme
 {
@@ -130,7 +130,7 @@ video#mavideo {
 {
     height: 400px;
     margin-top : 40px;
-    background-color:  rgba(0, 255, 213, 0.2);
+    background-color: rgba(0, 0, 0, 0.418);
     
 }
 
@@ -181,4 +181,65 @@ hr
 #drum
 {
     margin-top: 30px;
+}
+
+#part_act
+{
+    height:600px;
+    background-color: rgba(0, 0, 0, 0.418);
+    margin-top : 40px;   
+    width:80%;
+}
+#part_act2
+{
+    height:450px;
+    
+
+    overflow:auto;
+  
+
+}
+
+#rect_av
+{
+    height:100px;
+    margin-top : 10px;   
+    background-color: rgba(0, 0, 0, 0.418);
+    width:80%;
+}
+#img
+{
+    margin: 4px;
+    margin-top : 15px;
+}
+#rect_av_red
+{
+        height:100px;
+    margin-top : 10px;   
+    background-color: rgba(227, 67, 31, 1);
+    width:80%;
+}
+#chat_user
+{
+    height:250px;
+    margin-top : 10px;   
+    overflow:auto;
+    width:80%;
+}
+#message_user
+{
+    margin-top : 20px;
+    overflow:auto;
+    background-color: rgba(0, 0, 0, 0.418);
+    border-radius: 10px;
+}
+#msg
+{
+    text-align:left;
+    margin-top:10px;
+    
+}
+.progress
+{
+    margin-top:5px;
 }
