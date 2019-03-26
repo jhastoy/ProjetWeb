@@ -57,8 +57,6 @@ if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
                             <div class = 'col-8'>
                                 <p class = 'texte_nouv_part'> Tu n'as pas encore créé de partie!<br/> Réunis tes amis et venez tous ensemble découvrir l'histoire de la musique à travers différentes époques ! </p>
                             </div>
-                            
-                            
                         </div>
                     </div>
                 </div>"
@@ -66,11 +64,46 @@ if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
             }
             else
             {
-                echo "donne moi de l'argent stp";
+                ?>
+                <div class = 'col-6' id ="partie_actu">
+                    <div class= "row justify-content-center">
+                        <div class='col-12' id='progression'>
+                            <h1 class = 'titre_home'>Progression</h1>
+                            <div id='progression2'>
+                                <div class = "row justify-content-between">
+                                    <div class = "col-3">
+                                        <img id = "img" src = "images/enigme1.jpg" width= "150px" height = "150px"/>
+                                    </div>
+                                    <div class = "col-7">
+                                            <?php
+                                            $tab = querylisteBDD('ID,progression,time,points', 'scores', 'ID', $_SESSION['id']);
+                                            print "<h2><strong> Temps : </strong>".$tab["time"]."</h2>";
+                                            print"<h2>   <strong>Score : </strong>".$tab["points"]."</h2>";
+                                            print "<h2> <strong>    Acte </strong>".$tab['progression']."</h2>";
+                                            $progression=$tab['progression']/nombreGames()*100;
+                                            ?>
+                                    </div>
+                                </div>     
+                                <div class = "row justify-content-center">
+                                    <div class = "col-12">
+                                        <div class="progress" style="height:10px">
+                                            <div class='progress-bar <?php if($progression<=25){print"bg-danger";}else{if($progression>25 && $progression<= 50){print"bg-warning";}else{if($progression>50 && $progression<=75){print"bg-info";}else{print"bg-sucess";}}}?>' role="progressbar" style="height:10px ; width: <?php print($progression) ?>% " aria-valuenow= "<?php print($progression) ?>"  aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>           
+                            <div = "row justify-content-center">
+                                <div class = "col-12 text-center" id="reprise">
+                                    <a href = "game.php" id="couleur_lien" > reprends ta partie!!! </a>    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>   
             }
 
             
-        ?>
+        
         <div class="col-2" id="scores">
         <h1 class = "titre_home">Top fatbat'ers</h1>
         </div>
@@ -78,17 +111,11 @@ if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
 </div>
 <?php 
 }
+}
 else
 {
-?>
-    <div id = "fond_page">
-        <div class = "row justify-content-between">
-            <div class = "col-5" id = "part_act">
-                <h1 class = "titre_home">Les parties en cours </h1>
-                <div class = 'row justify-content-center'>
-                    <div id ="part_act2" class= "col-10" >
-                        
-                        <?php $tab = infosParties(); 
+
+                        $tab = infosParties(); 
                         for ($i = 0; $i < nombreparties(); $i++ )
                         {
                             ?>
@@ -141,7 +168,7 @@ else
                                 </div>
                             </div> 
                         <?php
-                        }  
+                        }
                         ?>  
                     </div>
                 </div>
@@ -156,7 +183,6 @@ else
                         $_SESSION['chatuser']=$_GET['chatuser'];
                         }
                         $tab = infosMessages($_SESSION['chatuser']);
-                        
                         for($i=nombreMessages($_SESSION['chatuser'])-1;$i>=0;$i--)
                         {
                             ?>
@@ -178,8 +204,8 @@ else
                                   
                     </div>
                 </div>
-                <div class = "row justify-content-center">
-                    <div class="col-10">
+                <div class = "row justify-content" id="envoyer_aide">
+                    <div class="col-3">
                         <form method = "POST" action = "test.php">
                             <div class="form-group">
                                 <textarea class="form-control" name="message" rows="1"></textarea>

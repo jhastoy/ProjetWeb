@@ -9,6 +9,14 @@ function queryBDD($select, $from, $where, $result)
     $value = $ligne["$select"];
     return $value;
 }
+function querylisteBDD($select, $from, $where, $result)
+{
+    require "connect.php" ;
+    $requete = "select $select from $from where $where = '$result'";
+    $res = $BDD -> query($requete);
+    $ligne = $res -> fetch();
+    return $ligne;
+}
 
 function updateBDD($table,$nom_colonne,$nouvelle_valeur,$where,$result)
 {
@@ -78,3 +86,4 @@ function sendChat($id, $message)
     $requete = "INSERT INTO `chat`(`ID`, `message`) VALUES ('$id','$message')";
     $BDD -> query($requete);
 }
+
