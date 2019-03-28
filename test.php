@@ -83,17 +83,17 @@ else
 ?>
     <div id = "fond_page">
         <div class = "row justify-content-between">
-            <div class = "col-5" id = "part_act">
+            <div class = "col-4" id = "part_act">
                 <h1 class = "titre_home">Les parties en cours </h1>
                 <div class = 'row justify-content-center'>
-                    <div id ="part_act2" class= "col-10" >
+                    <div id ="part_act2" class= "col-12" >
                         
                         <?php $tab = infosParties(); 
                         for ($i = 0; $i < nombreparties(); $i++ )
                         {
                             ?>
                             <div class = 'row justify-content-center'>
-                                <a href = "test.php?chatuser=<?php print($tab[$i]['ID']); ?>"><div  class = 'col-10' id = '<?php 
+                                <a href = "test.php?chatuser=<?php print($tab[$i]['ID']); ?>"><div  class = 'col-11' id = '<?php 
                                 
                                 if(queryBDD('HELP', 'users', 'ID', $tab[$i]['ID'])==true)
                                 {
@@ -112,9 +112,6 @@ else
                                         </div>
                                         <div class = "col-9">
                                         <?php
-                                    
-                                                
-      
                                                 print"<p id = 'img'><strong>Joueur : </strong>";
                                                 print $tab[$i]['ID']; 
                                                 print"<br/> <strong>Temps : </strong>";
@@ -154,7 +151,7 @@ else
                         if(!empty($_GET['chatuser']))
                         {
                         $_SESSION['chatuser']=$_GET['chatuser'];
-                        }
+                        
                         $tab = infosMessages($_SESSION['chatuser']);
                         
                         for($i=nombreMessages($_SESSION['chatuser'])-1;$i>=0;$i--)
@@ -172,6 +169,7 @@ else
                             </div>
                         <?php
                         }
+                        }
                 }
                         ?>
                     
@@ -188,6 +186,99 @@ else
                         </form>
                     </div>
                 </div>
+                
+            </div>
+            
+            <div class = "col-4" id = "part_act">
+                <h1 class = "titre_home">Creer une enigme</h1>
+                <?php
+                if(empty($_POST['title']))
+                {
+                ?>
+                <form method = "POST" action = "test.php">
+                    <div id = "create_enigme" class="form-group">
+                        
+                        <label for="titre">Titre de l'énigme</label>
+                        <input type="text" name="title" class="form-control" id="titre">
+                        <label for="corps">Corps de l'énigme</label>
+                        <textarea name="body" class="form-control" id="corps" rows="2"></textarea>
+                        
+                    
+                        
+                        <br/>
+                        <label for="upload1">Uploader une image, un son ou une vidéo</label>
+                        <input name = "filetoUpload"type="file" class="form-control-file" id="upload1">
+                        <br/>
+                        <label for="upload2">Uploader une image de fond (1920x1080)</label>
+                        <input name = "filetoUpload2"type="file" class="form-control-file" id="upload2">
+                        <br/>
+                        <select name = "type" class="form-control">
+                        <option>Reponse texte</option>
+                        <option>Reponse unique</option>
+                        
+                        </select>
+                        <br/>
+                        <button type="submit" class="btn btn-dark">Suivant</button>
+                                        
+                    </div>
+                </form>
+                <?php
+                }
+                else
+                {
+                    if(!empty($_POST['type']))
+                    {
+                    if($_POST['type'] == "Reponse texte")
+                    
+                 
+                { ?>
+
+                        <form method = "POST" action = "test.php">
+                            <div id = "create_enigme" class="form-group">
+                                <label for="titre">Réponse à l'énigme</label>
+                                <input type="text" name="title" class="form-control" id="titre">
+                                <br/>
+                                <button type="submit" class="btn btn-dark">Creer l'énigme</button>
+                            </div>
+                        </form>
+                    <?php
+                    }
+                    else 
+                    if($_POST['type'] == "Reponse unique")
+                    { ?>
+                        <form method = "POST" action = "test.php">
+                        <div id = "create_enigme" class="form-group">
+                            <?php
+                            for($a = 1; $a<5; $a++)
+                            {
+                            print"<label for='titre'>Proposition $a</label><input type='text' name='prop$a' class='form-control' id='titre'>";
+                        } ?>
+                        <br/>
+                        <label for="titre">Réponse à l'énigme</label>
+                        <input type="text" name="title" class="form-control" id="titre">
+                        </div>
+                        <button type="submit" class="btn btn-dark">Creer l'énigme</button>
+                        </form>
+                    <?php
+                    
+                    }
+                }
+                    else
+                    {
+                        print "<div class='alert alert-success' role='alert'>
+                        Bien joué ! Tu as créé l'énigme.
+                      </div>";
+                        ?>
+                        <form method = "POST" action = "test.php">
+                        <button type="submit" class="btn btn-dark">Super</button>
+                        </form>
+                        <?php
+                    }
+                    
+                
+                
+            }?>
+
             </div>
         </div> 
     </div>

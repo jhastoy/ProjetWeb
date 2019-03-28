@@ -8,6 +8,7 @@
     <?php
         session_start();
         require_once "includes/header.php";
+        require_once "includes/fonctions.php";
     ?>
 
     <div class = "row justify-content-center">
@@ -50,11 +51,10 @@
                                 for($i = 1; $i <= sizeof($_POST) ;$i++)
                                 {
                                     $value = $_POST["joueur$i"];
-                                    $id = $_SESSION['id'];
-                                    $Requete = "UPDATE teams SET joueur$i = '$value' WHERE id = '$id'";                                  
-                                    $BDD -> query($Requete);
-                                }
+                                    updateBDD('teams',"joueur$i",$value,'id',$_SESSION['id']);
 
+                                }
+                                updateBDD('scores','progression',1,'ID',$_SESSION['id']);   
                             }
                             else
                             {

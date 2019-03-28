@@ -24,7 +24,7 @@ function updateBDD($table,$nom_colonne,$nouvelle_valeur,$where,$result)
 function nombreParties()
 {
     require "connect.php" ;
-    $requete = "SELECT COUNT(`ID`) AS nb FROM `scores` WHERE `progression`!= (SELECT COUNT(*) FROM `games`)" ;
+    $requete = "SELECT COUNT(`ID`) AS nb FROM `scores` WHERE `progression`!= (SELECT COUNT(*) FROM `games`) and `progression`!=0" ;
     $res = $BDD -> query($requete);
     $ligne = $res -> fetch();
     $value = $ligne["nb"];
@@ -55,7 +55,7 @@ function infosParties()
 {
     require "connect.php" ;
     
-    $requete = "SELECT * FROM `scores` WHERE `progression`!= (SELECT COUNT(*) FROM `games`)" ;
+    $requete = "SELECT * FROM `scores` WHERE `progression`!= (SELECT COUNT(*) FROM `games`) and `progression`!=0" ;
     $res = $BDD -> query($requete);
     $info = $res -> fetchAll();
     return $info;
