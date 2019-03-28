@@ -247,3 +247,25 @@ hr
 {
     color : white;
 }
+#partie_actu
+{
+    height: 600 px;
+}
+h2
+{
+    color : whitesmoke;
+    margin-top : 10px;
+}
+#reprise
+{
+    font-size : 1.5em;
+    margin-top: 20px;
+}
+#couleur_lien
+{
+    color: burlywood;
+}
+#envoyer_aide
+{
+    margin-left: 75px;
+}

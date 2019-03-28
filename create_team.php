@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<? php require_once "includes/head.php";?>
+<?php require_once "includes/head.php";?>
 
 
 <body id = "fond_home">
@@ -75,6 +75,7 @@
                     <br/>
                     <button type="submit" class="btn btn-dark">Valider</button>
                 </form>
+
             </div>
         </div>
     </div>
