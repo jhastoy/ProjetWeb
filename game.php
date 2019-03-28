@@ -16,7 +16,13 @@
         updateBDD('users','HELP',true,'ID',$_SESSION['id']);
         header('Location: game.php');
     }
-    $time = $_POST["temps"];
+
+    if(array_key_exists ( 'début',$_SESSION ) == false)
+    {
+        $time = new DateTime() ;
+        $_SESSION['début'] = $time ; /// timeeeeeeeeeeeeeeeeeeeeeee 
+    }
+
     if(!empty($_POST['reponse']))
     {
         $reponse = queryBDD('reponse','games','ID_game',$progression);
@@ -124,12 +130,12 @@
                         updateBDD('scores','progression',queryBDD('progression', 'scores','ID', $_SESSION['id']) + 1 ,'ID',$_SESSION['id']);
                     }
                 }
+                
                 $time2 = new DateTime();
-                $time3 = strtotime($time);
-                echo $time3;
-                $time3 = $time3 -> diff($time2); 
+                $time3 = $_SESSION['début'] -> diff($time2); 
                 echo $time3 -> format("%H:%I:%S");
-                header('Refresh: 3; game.php');
+                ajoutpoints ($time3,$_SESSION['id']);
+                header("refresh: 3, 'game.php'");
             }
             else
             {
@@ -143,14 +149,13 @@
         <div class = "row justify-content-center">
             <form method = "POST" action = "game.php">
                 <?php 
-                $time = new DateTime();
+                
                     if(queryBDD('type','games','ID_game',$progression) == 0)
                     {
                         ?>
                         
                             <label for="reponse">Ta réponse</label>
                             <input name = "reponse" type="text" class="form-control" id = "reponse">
-                            <input name="temps" type = "hidden" value =<?php  $time ?>> 
                         <?php
                     }
                     else
