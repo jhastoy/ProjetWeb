@@ -26,13 +26,9 @@ function ajoutpoints ($time,$id_joueur)
     $nb_heures = $time -> format('%H');
     $nb_min = $time -> format('%I');
     $nb_sec = $time -> format('%S'); 
-    $time2 = $time ->format('%H:%I:%S');
     $time3= date("H:i:s", strtotime("+ $nb_heures hour, + $nb_min minute, + $nb_sec second ", strtotime($time_tot)));
-    echo $time_tot."       ";
-    echo $time2."     ";
-    echo $time3."            ";
+    print '......'.$time3;
     $requete = "UPDATE `scores` SET `time` = '$time3' ,`points`= $points + 60*60*$nb_heures + 60*$nb_min+$nb_sec WHERE `ID`= '$id_joueur'" ;
-    echo queryBDD('time','scores','ID',$id_joueur)."      ";
     $BDD -> query($requete);
 }
 
@@ -41,8 +37,7 @@ function updateBDD($table,$nom_colonne,$nouvelle_valeur,$where,$result)
     require "connect.php" ;
     $requete = "UPDATE $table
     SET $nom_colonne = '$nouvelle_valeur'
-    WHERE $where ='$result'
-    ";
+    WHERE $where ='$result'";
     $BDD -> query($requete);
 }
 

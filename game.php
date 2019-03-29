@@ -15,13 +15,10 @@
         sendChat($_SESSION['id'], $_POST['message']);
         updateBDD('users','HELP',true,'ID',$_SESSION['id']);
         header('Location: game.php');
+        exit();
     }
 
-    if(array_key_exists ( 'début',$_SESSION ) == false)
-    {
-        $time = new DateTime() ;
-        $_SESSION['début'] = $time ; /// timeeeeeeeeeeeeeeeeeeeeeee 
-    }
+
 
     if(!empty($_POST['reponse']))
     {
@@ -78,11 +75,10 @@
                             <div class = "row justify-content-center">
                                 <div id = "message_user" class ="col-10">
                                     <?php
-                                        $message = $tab[$i]['message'];
+                                      $message = $tab[$i]['message'];
                                         print "<p id = 'msg'>";
                                         print $message;
-                                        print "</p>";
-                                    ?>
+                                        print "</p>";?>
                                 </div>
                             </div>
                         <?php
@@ -101,46 +97,78 @@
                     </div>
                 </div>
             </div>
-            
-        
-    
             <div id ="corps_enigme" class = "col-8">
             <?php 
-            
             if($rep=='vrai' || $rep =='faux')
             {
-                $typee = queryBDD('TYPE','games','ID_game',$progression);
-                if ($typee == 1 || $typee == 2 && $rep== 'faux')
+              
+                $requete = "SELECT SUM(points_enigme) AS somme FROM games";
+                $res = $BDD -> query($requete);
+                $ligne = $res -> fetch();
+                $value = $ligne["somme"];
+                if (queryBDD('points', 'scores', 'ID', $_SESSION['id']) > $value)
                 {
-                    updateBDD('scores','points',queryBDD('points', 'scores', 'ID',$_SESSION['id'] ) + 1000,'ID',$_SESSION['id']);
-                    print "c'est faux sale loser!!! Même FatPatBat aurait trouvé sérieux là?!";
+                    print $value;
+                    $_SESSION['victoire'] = false;
+                    print("tu as perdu");
+                    ?>
+                    <form action = "end.php">
+                        <button type="submit" class="btn btn-dark">Terminer</button>
+                    </form>
+                    <?php
+                 
                 }
-                else 
+                else
                 {
-                    if ($typee == 0 && $rep== 'faux')
+                    $time2 = new DateTime();
+                    $time3 = $_SESSION['début'] -> diff($time2); 
+                    print $time3 -> format('%H,%I,%S');
+                    ajoutpoints ($time3,$_SESSION['id']);
+                    ?> 
+                    <form action = "game.php">
+                    <button type="submit" class="btn btn-dark">Continuer</button>
+                    </form>
+                    <?php
+                    if ($rep== 'faux')
                     {
-                        echo "faux réessaie encore loleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee(je te hais)eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+                        updateBDD('scores','points',queryBDD('points', 'scores', 'ID',$_SESSION['id'] ) + queryBDD('points_enigme','games', 'ID_game',$progression)/2,'ID',$_SESSION['id']);
+                        print "c'est faux sale loser!!! Même FatPatBat aurait trouvé sérieux là?!";
                     }
+
                     else
                     {
-                        print "c'est bien vu ça. La NASA te remercie ";
-                        
-                        
-                        //reprendre le time end puis faire soustraction puis inclure la différence dans le time global
-                        updateBDD('scores','progression',queryBDD('progression', 'scores','ID', $_SESSION['id']) + 1 ,'ID',$_SESSION['id']);
+                        if(queryBDD('progression', 'scores', 'ID', $_SESSION['id'] ) == nombreGames())
+                        {
+                            print "Bravo tu as fini le jeu";
+                            $_SESSION['victoire'] = true;
+                            ?>
+                            <form action = "end.php">
+                                <button type="submit" class="btn btn-dark">Terminer</button>
+                            </form>
+                            <?php
+                        }
+                        else
+                        {
+                            print "c'est bien vu ça. La NASA te remercie ";
+                            updateBDD('scores','progression',queryBDD('progression', 'scores','ID', $_SESSION['id']) + 1 ,'ID',$_SESSION['id']);
+                        }
                     }
-                }
                 
-                $time2 = new DateTime();
-                $time3 = $_SESSION['début'] -> diff($time2); 
-                echo $time3 -> format("%H:%I:%S");
-                ajoutpoints ($time3,$_SESSION['id']);
-                header("refresh: 3, 'game.php'");
+                
+            
+                // on créé une deuxième variable time lorsque la réponse est envoyée, on fait ensuite la différence avec le premier time et on obtient le temps mis pour faire l'enigme
+                        
+               
+                
+                 }
+                
+                 
             }
             else
             {
+                $time = new DateTime() ;
+                $_SESSION['début'] = $time ; /// timeeeeeeeeeeeeeeeeeeeeeee 
             ?>
-            
                 <p><?php print(queryBDD('body','games','ID_game',$progression)); ?></p>
                 <br/>
                 <?php print(queryBDD('content','games','ID_game',$progression)); ?>
