@@ -40,8 +40,7 @@ require_once "includes/header.php";
               <div class = "col-8"> <div class="alert alert-success" role="alert">
               Vous êtes à présent inscrit ! Vous pouvez vous <strong>connecter</strong>.
             </div></div></div>';
-            $Requete = "INSERT INTO scores (progression) VALUES (0)";
-            $BDD -> query($Requete);
+            
             }
           
         }

@@ -27,18 +27,25 @@ if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
                 <h1 class = "titre_home">Nouvelle parti'tion</h1>
                 <div id = "nouv_partie2_1" class = "row justify-content-center">
                     <div class = "col-10" id = "nouv_partie2">
-                    <p> Introduction au jeu </p>
+                    <p id ="description"> Fatpatbat est un jeune apprenti de la batterie. Sa véritable identité est Daniel Auteuil mais ça n'a pas de lien. Son soucis est qu'il est vraiment ridicule musicalement parlant et même sa batterie le déteste ! Fatpatbat va donc aller explorer le monde de la musique afin d'essayer de la comprendre et de jouer autre chose que "smell like teen spirit" et "highway to hell" ou au moins de le jouer mieux!!! Pour cela il a besoin de toi!!! Aide fatpatbat à traverser l'histoire de différents styles musicaux et à affronter les différentes énigmes qui seront sur son chemin !!</p>
                     </div>
                 </div>
                 <div class = "row justify-content-center">
                     
                     <div class = "col-4">
-                    <button class="btn btn-dark" style="text-align:center" type="submit">Règles</button>
+                    <a href = 'regles.php'><button class="btn btn-dark" style="text-align:center" type="submit">Règles</button></a>
                     </div>
                     <div class = "col-6">
+                    <?php 
+                    if(queryBDD('progression', 'scores', "ID", $_SESSION['id']) == 0)
+                    {
+                    ?>
                     <a href = "create_team.php"><button id = 'play' class='btn btn-dark' style='text-align:center' type='submit'>Lancer partie</button></a>
-                    </div>
                     
+                    <?php
+                    }
+                    ?>
+                    </div>  
                 </div>
             </div>
 
@@ -72,7 +79,19 @@ if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
                             <div id='progression2'>
                                 <div class = "row justify-content-between">
                                     <div class = "col-3">
-                                        <img id = "img" src = "images/enigme1.jpg" width= "150px" height = "150px"/>
+                                    <?php 
+                                           $progression= queryBDD('progression','scores','ID',$_SESSION['id']);
+                                           if (empty(queryBDD('image','games','ID_game',$progression)))
+
+                                          {
+                                               print " <img id = 'img' src = 'images/enigme1.jpg' width= '250px' />";
+                                          }
+                                          else
+                                          {
+                                            $nom_image = queryBDD('image','games','ID_game',$progression);
+                                            print "<img id = 'img' src = 'upload/$nom_image'  width= '250px' />" ; 
+                                          }
+                                           ?>
                                     </div>
                                     <div class = "col-7">
                                             <?php
@@ -85,7 +104,7 @@ if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
                                     </div>
                                 </div>     
                                 <div class = "row justify-content-center">
-                                    <div class = "col-12">
+                                    <div class = "col-11">
                                         <div class="progress" style="height:10px">
                                             <div class='progress-bar <?php if($progression<=25){print"bg-danger";}else{if($progression>25 && $progression<= 50){print"bg-warning";}else{if($progression>50 && $progression<=75){print"bg-info";}else{print"bg-sucess";}}}?>' role="progressbar" style="height:10px ; width: <?php print($progression) ?>% " aria-valuenow= "<?php print($progression) ?>"  aria-valuemin="0" aria-valuemax="100"></div>
                                             </div>
@@ -94,23 +113,51 @@ if (queryBDD('ADMIN', 'users', 'ID', $_SESSION['id']) == 0)
                                 </div>           
                             <div class = "row justify-content-center">
                                 <div class = "col-12 text-center" id="reprise">
-                                    <a href = "game.php" id="couleur_lien" > reprends ta partie!!! </a>    
+                                <?php
+                                    if(queryBDD('progression', 'scores', "ID", $_SESSION['id']) == nombreGames())
+                                    {
+                                        print "<p> Tu as terminé le jeu! Reviens plus tard pour de nouvelles épreuves! </p>";
+                                    }
+                                    else
+                                    {
+                                        print" <a href = 'game.php'><button type='submit' class='btn btn-dark'>Reprende la partie</button></a>";
+                                    }  
+                                    ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>   
+        <?php
             }
-
-            
-        
+            ?>
         <div class="col-2" id="scores">
         <h1 class = "titre_home">Top fatbat'ers</h1>
+        <?php
+                $players = arrayPlayers();
+                $nb_players = nb_joueurs_fpb();
+                
+                print "<p>";
+                print "<table>";
+                for ($i = 0;$i<10 && $i <$nb_players ; $i++)
+                {
+                    print "<tr>";
+                    print "<td>".($i+1)."      "."</td>";
+                    print "<td>".$players[$i]['ID']."      "."</td>";
+                    print "<td>".$players[$i]['points']."      "."</td>";
+                    
+                    print "</tr>";
+                }
+                
+                print "</table>";
+                print "</p>";
+        ?>
         </div>
     </div>
 </div>
 <?php 
-}
+
+
 }
 else
 {
@@ -142,7 +189,20 @@ else
                                   
                                     <div class = "row justify-content-between">
                                         <div class = "col-3">
-                                            <img id = "img" src = "images/enigme1.jpg" width= "100px"/>
+                                            
+                                          <?php 
+                                           $progression= $tab[$i]['progression'];
+                                           if (empty(queryBDD('image','games','ID_game',$progression)))
+
+                                          {
+                                               print " <img id = 'img' src = 'images/enigme1.jpg' width= '100px' />";
+                                          }
+                                          else
+                                          {
+                                            $nom_image = queryBDD('image','games','ID_game',$progression);
+                                            print "<img id = 'img' src = 'upload/$nom_image'  width= '100px' />" ; 
+                                          }
+                                           ?>
                                         </div>
                                         <div class = "col-9">
                                         <?php
@@ -154,11 +214,9 @@ else
                                                 print $tab[$i]['points'];
                                                 
                                                 print"</p>";
-                                                
-                                                $progression=$tab[$i]['progression']/nombreGames()*100;
                                                 ?>
                                         </div>
-
+                                      <?php  $progression= $tab[$i]['progression']/nombreGames()*100; ?>
                                     </div>
                                     <div class = "row justify-content-center">
                                         <div class = "col-12">
@@ -210,7 +268,7 @@ else
                     </div>
                 </div>
                 <div class = "row justify-content" id="envoyer_aide">
-                    <div class="col-3">
+                    <div class="col-12">
                         <form method = "POST" action = "test.php">
                             <div class="form-group">
                                 <textarea class="form-control" name="message" rows="1"></textarea>
@@ -225,10 +283,10 @@ else
             <div class = "col-4" id = "part_act">
                 <h1 class = "titre_home">Creer une enigme</h1>
                 <?php
-                if(empty($_POST['title']))
+                if(empty($_POST['title']) && empty($_POST['reponse']))
                 {
                 ?>
-                <form method = "POST" action = "test.php">
+                <form enctype="multipart/form-data" method = "POST" action = "test.php">
                     <div id = "create_enigme" class="form-group">
                         
                         <label for="titre">Titre de l'énigme</label>
@@ -240,10 +298,12 @@ else
                         
                         <br/>
                         <label for="upload1">Uploader une image, un son ou une vidéo</label>
-                        <input name = "filetoUpload"type="file" class="form-control-file" id="upload1">
+                        <input type = "hidden" name = "MAX_FILE_SIZE" value = "10000000000000" />
+                        <input name = "content" type="file"  class="form-control-file" id="upload1"/>
                         <br/>
                         <label for="upload2">Uploader une image de fond (1920x1080)</label>
-                        <input name = "filetoUpload2"type="file" class="form-control-file" id="upload2">
+                        <input type = "hidden" name = "MAX_FILE_SIZE" value = "10000000000000" />
+                        <input name = "fond" type="file"  class="form-control-file" id="upload1"/>
                         <br/>
                         <select name = "type" class="form-control">
                         <option>Reponse texte</option>
@@ -259,48 +319,108 @@ else
                 }
                 else
                 {
-                    if(!empty($_POST['type']))
-                    {
-                    if($_POST['type'] == "Reponse texte")
-                    
-                 
-                { ?>
 
-                        <form method = "POST" action = "test.php">
-                            <div id = "create_enigme" class="form-group">
-                                <label for="titre">Réponse à l'énigme</label>
-                                <input type="text" name="title" class="form-control" id="titre">
-                                <br/>
-                                <button type="submit" class="btn btn-dark">Creer l'énigme</button>
-                            </div>
-                        </form>
-                    <?php
-                    }
-                    else 
-                    if($_POST['type'] == "Reponse unique")
-                    { ?>
-                        <form method = "POST" action = "test.php">
-                        <div id = "create_enigme" class="form-group">
-                            <?php
-                            for($a = 1; $a<5; $a++)
+                    if(!empty($_POST['type']) && empty($_POST['reponse']))
+                    {
+                        
+                        $var = uploadImage($_FILES,'upload','content','fond');
+                        if($_POST['type'] == "Reponse texte")
+                        { 
+                        insertEnigme1($_POST['title'], $_POST['body'], 0);
+                        ?>
+
+                            <form method = "POST" action = "test.php">
+                                <div id = "create_enigme" class="form-group">
+                                    <label for="titre">Réponse à l'énigme</label>
+                                    <input type="text" name="reponse" class="form-control" id="titre">
+                                    <label for="number">Nombre de points associés à l'énigme (1 pt = 1 sec)</label>
+                                    <input type="text" name="point" class="form-control" id="point">
+                                    <br/>
+                                    <button type="submit" class="btn btn-dark">Creer l'énigme</button>
+                                </div>
+                            </form>
+                        <?php
+                        }
+                        else 
+                        {
+                            if($_POST['type'] == "Reponse unique")
+                            { 
+                                insertEnigme1($_POST['title'], $_POST['body'], 1)
+                                ?>
+                                <form method = "POST" action = "test.php">
+                                <div id = "create_enigme" class="form-group">
+                                    <?php
+                                    for($a = 1; $a<5; $a++)
+                                    {
+                                    print"<label for='titre'>Proposition $a</label><input type='text' name='prop$a' class='form-control' id='titre'>";
+                                    } ?>
+                                    <label for="titre">Réponse à l'énigme</label>
+                                    <input type="text" name="reponse" class="form-control" id="titre">
+                                    <label for="number">Nombre de points associés à l'énigme (1 pt = 1 sec)</label>
+                                    <input type="text" name="point" class="form-control" id="point">
+                                    <br/>
+                                    <button type="submit" class="btn btn-dark">Creer l'énigme</button>
+                                </div>
+                                </form>
+                               <?php
+                                
+                            }
+                        }
+                        $nbreGames = nombreGames() ;
+                        $BDD -> query("update games set image = '$var[2]' where ID_game = $nbreGames");
+                        $BDD -> query("update games set content = '$var[0]' where ID_game = $nbreGames");
+                        if($var[1] == ".png")
+                        {
+                            $BDD -> query("update games set TypeContent = 0 where ID_game = $nbreGames");
+                        }
+                        else
+                        {
+                            if($var[1] == ".mp3")
                             {
-                            print"<label for='titre'>Proposition $a</label><input type='text' name='prop$a' class='form-control' id='titre'>";
-                        } ?>
-                        <br/>
-                        <label for="titre">Réponse à l'énigme</label>
-                        <input type="text" name="title" class="form-control" id="titre">
-                        </div>
-                        <button type="submit" class="btn btn-dark">Creer l'énigme</button>
-                        </form>
-                    <?php
+                                $BDD -> query("update games set TypeContent = 1 where ID_game = $nbreGames");
+                            }
+                            else
+                            {
+                                if($var[1] == ".mp4")
+                                {
+                                $BDD -> query("update games set TypeContent = 2 where ID_game = $nbreGames");
+                                }
+                            }
+                        }   
+                    ?>
+                          
+                        <?php
                     
                     }
-                }
+                
                     else
                     {
+                        if(!empty($_POST['prop1']))
+                        {
+                            $ID_select = nombreGames();
+                            $requete = "insert into game_select (ID_game) values ($ID_select) ";
+                            $BDD -> query($requete);
+                            for($i = 1; $i<5; $i++)
+                            {
+                                
+                                $prop = $_POST["prop$i"];
+                                $requete = "update game_select set select$i = '$prop' where ID_game = $ID_select";
+                                $BDD -> query($requete);
+                            }
+                            $reponse = $_POST['reponse'];
+                            $BDD -> query("update games set reponse = '$reponse' where ID_game = $ID_select");
+                            
+                        }
+                        $ID_select = nombreGames();
+                        $reponse = $_POST['reponse'];
+                        $point = $_POST['point'];
+                        $requete = " update games set reponse = '$reponse' where ID_game = $ID_select";
+                        $BDD -> query($requete);
+                        $requete = "update games set points_enigme = '$point' where ID_game = $ID_select";
+                        $BDD -> query($requete);
                         print "<div class='alert alert-success' role='alert'>
                         Bien joué ! Tu as créé l'énigme.
-                      </div>";
+                        </div>";
                         ?>
                         <form method = "POST" action = "test.php">
                         <button type="submit" class="btn btn-dark">Super</button>
@@ -308,10 +428,10 @@ else
                         <?php
                     }
                     
-                
+                }
                 
             }
-        }?>
+        ?>
 
             </div>
         </div> 

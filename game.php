@@ -1,15 +1,25 @@
 <!DOCTYPE html>
-<?php require_once "includes/head.php"; ?>
-<body background = "images/enigme1.jpg">
+<?php require_once "includes/head.php"; 
+    session_start();
+    require_once "includes/fonctions.php";
+$progression = queryBDD('progression','scores','ID',$_SESSION['id']);
+$fond = queryBDD('image','games','ID_game',$progression);
+
+if (empty($fond))
+{
+    print "<body style='background: url(images/enigme1.jpg) no-repeat; width: 99%; background-size: 100%;'>";
+}
+else
+{
+    print "<body style='background: url(upload/$fond) no-repeat; width: 99%; background-size: 100%;'>";
+}?>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="css_login.css">
     <?php
-    session_start();
+    
     require_once "includes/header.php";
     require_once "includes/connect.php"; 
-    require_once "includes/fonctions.php";
     $rep = 'rien';
-    $progression = queryBDD('progression','scores','ID',$_SESSION['id']);
     if(!empty($_POST['message']))
     {
         sendChat($_SESSION['id'], $_POST['message']);
@@ -91,7 +101,10 @@
                         <form method = "POST" action = "game.php">
                             <div class="form-group" method = "POST" action = "game.php">
                                 <textarea class="form-control" name="message" rows="1"></textarea>
+                                <br/>
+                                <p>
                                 <button type="submit" class="btn btn-dark">Demander de l'aide</button>
+                                 </p>
                             </div>
                         </form>
                     </div>
@@ -101,7 +114,7 @@
             <?php 
             if($rep=='vrai' || $rep =='faux')
             {
-              
+                require "includes/connect.php" ;
                 $requete = "SELECT SUM(points_enigme) AS somme FROM games";
                 $res = $BDD -> query($requete);
                 $ligne = $res -> fetch();
@@ -122,17 +135,20 @@
                 {
                     $time2 = new DateTime();
                     $time3 = $_SESSION['début'] -> diff($time2); 
-                    print $time3 -> format('%H,%I,%S');
                     ajoutpoints ($time3,$_SESSION['id']);
-                    ?> 
-                    <form action = "game.php">
-                    <button type="submit" class="btn btn-dark">Continuer</button>
-                    </form>
-                    <?php
+
                     if ($rep== 'faux')
                     {
                         updateBDD('scores','points',queryBDD('points', 'scores', 'ID',$_SESSION['id'] ) + queryBDD('points_enigme','games', 'ID_game',$progression)/2,'ID',$_SESSION['id']);
-                        print "c'est faux sale loser!!! Même FatPatBat aurait trouvé sérieux là?!";
+                        $tab_fail = [
+                            1 => " <p>Même le minable FatPatBat avait la réponse à cette question! Il n'avait juste pas assez confiance en lui pour la donner. <br/> \" C'est vrai \"  Fatpatbat </p> " ,
+                            2 => "<p> C'est faux sale loser ! <br/> C'est le marathon de la nullité ? Toi et ton équipe essayez d'être le plus naze possible?! </p>" ,
+                            3 => "<p> Faux mon p'tit pote! <br/> Ton partenaire va finir avec moi si tu continues " ,
+                            4 => "<p> Mauvaise réponse! <br/> Je suis avec Jacques Brel et il te deteste officiellement mon gars. Bye bye les vacances avec lui dans les pyrénnées."
+                            ];
+                            $alea =  random_int(1,4); 
+                            print $tab_fail[$alea];
+                            print "<br/>  <p  class = 'infos'>Ton score : ".queryBDD('points', 'scores', 'ID', $_SESSION['id'])."</p>"; 
                     }
 
                     else
@@ -149,17 +165,27 @@
                         }
                         else
                         {
-                            print "c'est bien vu ça. La NASA te remercie ";
+                            $tab_reussi = [
+                            1 => " <p> oh mon dieu c'est juste! Fatpatbat te remercie et promet de se faire tatouer ton visage sur le sien pour te ressembler d'avantage!</p> " ,
+                            2 => "<p> mec arrête d'être si fort! Les francs-maçons te jalousent et ils l'assument car ce sont des ouvriers sincères. </p>" ,
+                            3 => "<p> MAIS TU ES INCOLLABLE. Comme un rat de bibliothèque." ,
+                            4 => "<p> \" Ahaha cet homme est incroyable\" a dit Mozart en te voyant débiter la bonne réponse telle ta carte bleue lorsque tu bois trop. Ivrogne" 
+                            ];
+                            $alea =  random_int(1,4); 
+                            print $tab_reussi[$alea];
+                            print "<br/>  <p  class = 'infos'>Ton score : ".queryBDD('points', 'scores', 'ID', $_SESSION['id'])."</p>"; 
                             updateBDD('scores','progression',queryBDD('progression', 'scores','ID', $_SESSION['id']) + 1 ,'ID',$_SESSION['id']);
                         }
                     }
-                
-                
-            
+                    ?>
+                    <form action = "game.php">
+                        <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-dark">Continuer</button>
+                        </div>
+                    </form>
+
+                <?php
                 // on créé une deuxième variable time lorsque la réponse est envoyée, on fait ensuite la différence avec le premier time et on obtient le temps mis pour faire l'enigme
-                        
-               
-                
                  }
                 
                  
@@ -169,21 +195,48 @@
                 $time = new DateTime() ;
                 $_SESSION['début'] = $time ; /// timeeeeeeeeeeeeeeeeeeeeeee 
             ?>
-                <p><?php print(queryBDD('body','games','ID_game',$progression)); ?></p>
+                <p><?php
+                
+                 print(queryBDD('body','games','ID_game',$progression)); ?></p>
                 <br/>
-                <?php print(queryBDD('content','games','ID_game',$progression)); ?>
+                <?php
+                if(queryBDD('TypeContent','games','ID_game',$progression)==0)
+                {
+                    $img = queryBDD('content','games','ID_game',$progression);
+                    print"<img src = 'upload/$img'/>";
+                }
+                else
+                {
+                    if(queryBDD('TypeContent','games','ID_game',$progression)==2)
+                    {
+                        $video = queryBDD('content','games','ID_game',$progression);
+                        print "<p><video width='400' height='250' controls>
+                        <source src='upload/$video' type='video/mp4'></p>";
+                    }
+                    else
+                    {
+                        $son = queryBDD('content','games','ID_game',$progression);
+                        print "<audio loop autoplay src='upload/$son'></audio>";
+                    }
+                }
+                ?>
+          </div>
+        </div>  
+        <div class = "row justify-content-around">
+            <div class = "col-6">
             </div>
-        </div>
-        <div class = "row justify-content-center">
+            <div class = "col-4">
             <form method = "POST" action = "game.php">
                 <?php 
                 
                     if(queryBDD('type','games','ID_game',$progression) == 0)
                     {
                         ?>
-                        
-                            <label for="reponse">Ta réponse</label>
-                            <input name = "reponse" type="text" class="form-control" id = "reponse">
+                            <input name = "reponse" type="text" class="form-control" >
+                            <p>
+                            <button type="submit" class="btn btn-dark">Valider</button>
+                            </p>
+                
                         <?php
                     }
                     else
@@ -191,8 +244,8 @@
                         if(queryBDD('type','games','ID_game',$progression) == 1)
                         {
                             ?>
-                                <label for="reponse">Ta réponse</label>
-                                <select name="reponse" multiple class="form-control" id="reponse">
+                                
+                                <select name="reponse" multiple class="form-control" >
                                     <?php
                                         for($i = 1; $i<=4; $i++)
                                         {
@@ -202,6 +255,9 @@
                                         }
                                         ?>
                                 </select>
+                                <p>
+                                <button type="submit" class="btn btn-dark">Valider</button>
+                                </p>
                                 <?php
                         }
                         else
@@ -220,11 +276,18 @@
             
                 ?>
                 <br/>
-                <button type="submit" class="btn btn-dark">Valider</button>
+                
+               
+               
+                
             </form>
+                </div>
+                <div class = 'col-2'>
+                </div>    
             <?php
             }
             ?>
+       
         </div>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

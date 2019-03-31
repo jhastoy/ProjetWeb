@@ -34,11 +34,8 @@
       </a>
     
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="#">Profil</a>
-        <a class="dropdown-item" href="#">Mes équipes</a>
-        <div class="dropdown-divider"></div>
  
-        <a class="dropdown-item" href="#"><strong>Se déconnecter</strong></a>
+        <a class="dropdown-item" href="deconnect.php"><strong>Se déconnecter</strong></a>
       </div>
     </div>
 

@@ -6,5 +6,5 @@
     <title>MusicScape</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="main.js"></script>
-    
+    <link rel="icon" href="images/favicon.ico" />
 </head>
